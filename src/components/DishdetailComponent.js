@@ -1,19 +1,16 @@
-import React,{ Component } from 'react';
+import React from 'react';
 import { CardImg, CardImgOverlay, CardTitle, CardText } from 'reactstrap';
 
-class DishdetailComponent extends Component {
-
-    render() {
-        return (
-            <div onClick={this.props.onClick}>
-                <CardImg width="100%" object src={this.props.image} alt={this.props.name}/>
+const DishdetailComponent = ({onClick,image,name,description}) => {
+    return (
+        <div onClick={onClick}>
+                <CardImg width="100%" object src={image} alt={name}/>
                     <CardImgOverlay>
-                        <CardTitle>{this.props.name}</CardTitle>
-                        <CardText>{this.props.description}</CardText>
+                        <CardTitle>{name}</CardTitle>
+                        <CardText>{description}</CardText>
                     </CardImgOverlay>
             </div>
-        );
-    }
+    );
 }
 
 export default DishdetailComponent;
