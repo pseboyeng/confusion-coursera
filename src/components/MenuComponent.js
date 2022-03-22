@@ -1,8 +1,5 @@
 import React,{ Component } from 'react';
-import { CardText, CardTitle, CardBody } from 'reactstrap';
-import DishdetailComponent from './DishdetailComponent';
-import CardComponent from './CardComponent';
-import SelectedDishComponent from './SelectedDishComponent';
+import { CardText, CardTitle, CardBody, Card, CardImg, CardImgOverlay } from 'reactstrap';
 
 class Menu extends Component {
     constructor(props) {
@@ -91,6 +88,35 @@ class Menu extends Component {
             </div>
         );
     }
+}
+
+//CARD COMPONENT.
+const CardComponent = ({children}) =><Card>{children}</Card>
+
+//SELECTED DISH COMPONENT.
+const SelectedDishComponent = ({image, name, description}) => {
+    return (
+        <div>
+                <CardImg width="100%" object src={image} alt={name}/>
+                    <CardBody>
+                        <CardTitle>{name}</CardTitle>
+                        <CardText>{description}</CardText>
+                    </CardBody>
+               </div> 
+    );
+}
+
+//DISH DETAIL COMPONENT.
+const DishdetailComponent = ({onClick,image,name,description}) => {
+    return (
+        <div onClick={onClick}>
+                <CardImg width="100%" object src={image} alt={name}/>
+                    <CardImgOverlay>
+                        <CardTitle>{name}</CardTitle>
+                        <CardText>{description}</CardText>
+                    </CardImgOverlay>
+            </div>
+    );
 }
 
 export default Menu;
