@@ -68,7 +68,7 @@ class Main extends Component{
 
   render() {
 
-    console.log(this.state.selectedDish)
+    // console.log(this.state.selectedDish)
     return (
       <div>
           <Navbar dark color="secondary">
@@ -77,7 +77,7 @@ class Main extends Component{
             </div>
           </Navbar>
           <div className="container">
-            <Menu dishes={this.state.dishes} onDishClick={this.onDishSelect}/>
+            <Menu dishes={this.state.dishes} onClick={this.onDishSelect}/>
             <div className="row">
               {
                 //Render Selected Dish.
