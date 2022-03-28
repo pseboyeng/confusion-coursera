@@ -1,111 +1,96 @@
 import React,{Component} from 'react';
-import { Navbar, NavbarBrand, CardImg, CardBody, CardTitle, CardText } from 'reactstrap';
+import { CardImg, CardBody, CardTitle, CardText, Card,CardImgOverlay } from 'reactstrap';
 import CardComponent from './CardComponent';
+import Header from './HeaderComponent';
+import Footer from './FooterComponent';
+import Home from './HomeComponent';
 import Menu from './MenuComponent';
 import { DISHES } from './shared/dishes';
+import {Switch, Route, Redirect } from 'react-router-dom';
 
 class Main extends Component{
   state = {
       dishes: DISHES,
-      selectedDish: null
+     // selectedDish: null
     };
 
 
-    onDishSelect = (dish)=> {
-        this.setState({ selectedDish : dish });
-    }
-
-    //RENDER SELECTED DISH.
-    renderDish =(dish)=> {
-        if(dish != null) {
-            return(
-                    <div className="col-12 col-md-5 m-1">
-                        <CardComponent>
-                            <SelectedDishComponent 
-                                image={dish.image} alt={dish.name} 
-                                name={dish.name}
-                                description={dish.description}
-                            />
-                        </CardComponent>
-                    </div>
-            );
-        }else{
-            return(
-                    <div></div>
-            )
-        }
-    }
-
-    //RENDER COMMENTS.
-    renderComments=(dish)=>{
-      if(dish != null){
-        return (
-          <div className="col-12 col-md-5 m-1">
-          <CardComponent>
-            <CardBody>
-              <CardTitle>Comments</CardTitle>
-              {
-                dish.comments.map((comment)=>{
-                  return (
-                    <div key={comment.id}>
-                      <CardText>{comment.comment}</CardText>
-                      <CardText>--{comment.author},  {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</CardText>
-                    </div>
-                  );
-                })
-              }
-            </CardBody>
-          </CardComponent>
-          </div>
-        );
-      }else{
-        return (
-          <div></div>
-        );
-      }
-    }
+  // onDishSelect = (dish)=> {this.setState({ selectedDish : dish })}
 
 
   render() {
 
+    const HomePage =() => {
+      return (
+        <Home />
+      );
+    }
+
     // console.log(this.state.selectedDish)
     return (
       <div>
-          <Navbar dark color="secondary">
-            <div className="container">
-              <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
-            </div>
-          </Navbar>
+          <Header />
           <div className="container">
-            <Menu dishes={this.state.dishes} onClick={this.onDishSelect}/>
-            <div className="row">
-              {
-                //Render Selected Dish.
-                this.renderDish(this.state.selectedDish)
-              }
-
-              {
-                //Render Comments for Selected Dish.
-                this.renderComments(this.state.selectedDish)
-              }
-            </div>
+              {/* <Menu dishes={this.state.dishes} onClick={this.onDishSelect}/>
+              <RenderDish dish={this.state.selectedDish}/> */}
+              <Switch>
+                <Route path="/home" component={HomePage}/>
+                <Route exact path="/menu" component={() => <Menu dishes={this.state.dishes} />} />
+                <Redirect to="/home" />
+              </Switch>
           </div>
+          <Footer />
       </div>
     );
   }
 }
-
-//SELECTED DISH COMPONENT.
-const SelectedDishComponent = ({image, name, description}) => {
-    return (
-        <div>
-                <CardImg width="100%" object src={image} alt={name}/>
+//SUPPOSED TO BE DISH DETAIL.
+const RenderDish =({dish})=>{
+  return(
+    <div className="row">
+      {
+          dish?
+          <div className="col-12 col-md-5 m-1">
+                  <Card>
+                    <CardImg top src={dish.image} alt={dish.name}/>
                     <CardBody>
-                        <CardTitle>{name}</CardTitle>
-                        <CardText>{description}</CardText>
+                      <CardTitle>{dish.name}</CardTitle>
+                      <CardText>{dish.description}</CardText>
                     </CardBody>
-               </div> 
-    );
+                  </Card>
+          </div>
+          :<div></div>
+        }
+
+        {
+          dish?
+          <div className="col-12 col-md-5 m-1">
+            <CardComponent>
+              <CardBody>
+                <CardTitle>Comments</CardTitle>
+                {
+                  dish.comments.map(({id,comment,author,date})=>{
+                    return (
+                      <div key={id}>
+                        <CardText>{comment}</CardText>
+                        <CardText>
+                          --{author},  
+                          {new Intl.DateTimeFormat('en-US', 
+                          { year: 'numeric', month: 'short', day: '2-digit'})
+                          .format(new Date(Date.parse(date)))}
+                        </CardText>
+                      </div>
+                    );
+                  })
+                }
+              </CardBody>
+            </CardComponent>
+          </div>
+          :<div></div>
+        }
+
+    </div>
+  );
 }
 
 export default Main;

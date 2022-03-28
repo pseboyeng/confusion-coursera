@@ -9,7 +9,7 @@ const DishdetailComponent = ({onClick,image,name,description}) => {
                         <CardTitle>{name}</CardTitle>
                         <CardText>{description}</CardText>
                     </CardImgOverlay>
-            </div>
+        </div>
     );
 }
 
