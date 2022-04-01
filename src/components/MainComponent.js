@@ -1,6 +1,4 @@
 import React,{Component} from 'react';
-// import { CardImg, CardBody, CardTitle, CardText, Card, Breadcrumb, BreadcrumbItem } from 'reactstrap';
-// import CardComponent from './CardComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Contact from './ContactComponent';
@@ -19,12 +17,7 @@ class Main extends Component{
       comments: COMMENTS,
       promotions: PROMOTIONS,
       leaders: LEADERS
-     // selectedDish: null
     };
-
-
-  // onDishSelect = (dish)=> {this.setState({ selectedDish : dish })}
-
 
   render() {
 
@@ -62,54 +55,5 @@ class Main extends Component{
     );
   }
 }
-
-// //SUPPOSED TO BE DISH DETAIL.
-// const DishDetail =({dish})=>{
-//   return(
-//     <div className="row">
-//       {
-//           dish?
-//           <div className="col-12 col-md-5 m-1">
-//                   <Card>
-//                     <CardImg top src={dish.image} alt={dish.name}/>
-//                     <CardBody>
-//                       <CardTitle>{dish.name}</CardTitle>
-//                       <CardText>{dish.description}</CardText>
-//                     </CardBody>
-//                   </Card>
-//           </div>
-//           :<div></div>
-//         }
-
-//         {
-//           dish?
-//           <div className="col-12 col-md-5 m-1">
-//             <CardComponent>
-//               <CardBody>
-//                 <CardTitle>Comments</CardTitle>
-//                 {
-//                   dish.comments.map(({id,comment,author,date})=>{
-//                     return (
-//                       <div key={id}>
-//                         <CardText>{comment}</CardText>
-//                         <CardText>
-//                           --{author},  
-//                           {new Intl.DateTimeFormat('en-US', 
-//                           { year: 'numeric', month: 'short', day: '2-digit'})
-//                           .format(new Date(Date.parse(date)))}
-//                         </CardText>
-//                       </div>
-//                     );
-//                   })
-//                 }
-//               </CardBody>
-//             </CardComponent>
-//           </div>
-//           :<div></div>
-//         }
-
-//     </div>
-//   );
-// }
 
 export default Main;
